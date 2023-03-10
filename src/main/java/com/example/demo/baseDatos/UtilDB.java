@@ -21,7 +21,7 @@ public class UtilDB {
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM books");
             while (rs.next()){
-                Book book = new Book(rs.getString("title"),rs.getString("author"),Integer.parseInt(rs.getString("amount")));
+                Book book = new Book(rs.getString("title"),rs.getString("author"),Integer.parseInt(rs.getString("units")));
                 bookList.put(book.getId(), book);
                 System.out.println(rs.getString("title") + " se guardó exitosamente");
             }

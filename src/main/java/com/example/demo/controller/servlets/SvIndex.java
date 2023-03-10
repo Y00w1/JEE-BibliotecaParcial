@@ -12,14 +12,16 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(name = "SvIndex", value = "/login")
+@WebServlet(name = "SvIndex", urlPatterns = "/login")
 public class SvIndex extends HttpServlet {
     private ModelFactoryController mfc = ModelFactoryController.getInstance();
+    Map<String, Book> books = mfc.loadBooks();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
 
+        System.out.println("oe sapo");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
@@ -33,7 +35,11 @@ public class SvIndex extends HttpServlet {
         }
         if (!mfc.login(email, password)){
             error.put("invalid", "Datos inválidos");
+            System.out.println("Validando");
         }else if(error.isEmpty()){
+            System.out.println("melo");
+            HttpSession session = request.getSession();
+            session.setAttribute("bookList", books);
             response.sendRedirect("main.jsp");
         }
         else{

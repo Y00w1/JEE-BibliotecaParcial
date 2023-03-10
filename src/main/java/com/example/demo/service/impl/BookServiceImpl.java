@@ -11,7 +11,9 @@ public class BookServiceImpl implements BookService {
     private HashMap<String, Book> books = new HashMap<>();
 
     public BookServiceImpl() {
-        books = UtilDB.dataBaseBooks();
+        Book book = new Book("Titulo", "Autor", 3 );
+        books.put(book.getId(), book);
+        //books = UtilDB.dataBaseBooks();
     }
 
     @Override
